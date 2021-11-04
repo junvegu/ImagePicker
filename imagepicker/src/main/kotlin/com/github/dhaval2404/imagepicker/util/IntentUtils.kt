@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import com.github.dhaval2404.imagepicker.R
+import android.content.pm.ActivityInfo
 import java.io.File
 
 /**
@@ -71,6 +72,8 @@ object IntentUtils {
     @JvmStatic
     fun getCameraIntent(context: Context, file: File): Intent? {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // authority = com.github.dhaval2404.imagepicker.provider
@@ -93,6 +96,7 @@ object IntentUtils {
     @JvmStatic
     fun isCameraAppAvailable(context: Context): Boolean {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
         return intent.resolveActivity(context.packageManager) != null
     }
 
